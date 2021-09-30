@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+import SortingContainer from "./SortingContainer";
+import styled from "styled-components";
 
 export default function FiltersContainer() {
-    return (
-        <div>
-            FiltersContainer
-        </div>
-    )
+  return (
+    <>
+      <SortingContainer />
+      {/* BrandsContainer */}
+      {/* TagsContainer */}
+    </>
+  );
 }
+
+const StyledFiltersContainer = styled.div``;

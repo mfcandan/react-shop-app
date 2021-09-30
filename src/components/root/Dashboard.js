@@ -1,24 +1,23 @@
-import React from 'react'
-import CartDetail from '../cart/CartDetail';
-import FiltersContainer from '../filterComponents/FiltersContainer';
-import ProductContainer from '../products/ProductContainer';
-import styled from 'styled-components'
-
+import React from "react";
+import CartDetail from "../cart/CartDetail";
+import FiltersContainer from "../filterComponents/FiltersContainer";
+import ProductContainer from "../products/ProductContainer";
+import styled from "styled-components";
 
 export default function Dashboard() {
-    return (
-        <StyledDashboardWrapper>
-            <StyledLeftContainer>
-                <FiltersContainer />
-            </StyledLeftContainer>
-            <StyledCenterContainer>
-                <ProductContainer />
-            </StyledCenterContainer>
-            <StyledRightContainer>
-                <CartDetail />
-            </StyledRightContainer>
-        </StyledDashboardWrapper>
-    )
+  return (
+    <StyledDashboardWrapper>
+      <StyledLeftContainer>
+        <FiltersContainer />
+      </StyledLeftContainer>
+      <StyledCenterContainer>
+        <ProductContainer />
+      </StyledCenterContainer>
+      <StyledRightContainer>
+        <CartDetail />
+      </StyledRightContainer>
+    </StyledDashboardWrapper>
+  );
 }
 
 const StyledDashboardWrapper = styled.div`
@@ -27,17 +26,13 @@ const StyledDashboardWrapper = styled.div`
   grid-gap: 1.11%;
   justify-content: center;
   background-color: #fafafa;
-  margin-top: 2rem;
-`
+  padding-top: 2.36rem;
+`;
 
-const StyledLeftContainer = styled.div`
-    background-color: red;
-`
+const StyledLeftContainer = styled.div``;
 
 const StyledCenterContainer = styled.div`
-    background-color: yellow;
-`
+  border: 4px solid orange;
+`;
 
-const StyledRightContainer = styled.div`
-
-`
+const StyledRightContainer = styled.div``;
