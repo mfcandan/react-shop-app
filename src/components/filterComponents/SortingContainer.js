@@ -51,7 +51,9 @@ export default function SortingContainer() {
   );
 }
 
-const StyledContainer = styled.div``;
+const StyledContainer = styled.div`
+  margin-bottom: 1.5em;
+`;
 
 const StyledWrapper = styled.div`
   background-color: #fff;
@@ -64,8 +66,9 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledHeader = styled.p`
-  font-size: 0.81em;
+  font-size: 0.81rem;
   font-weight: 600;
+  margin-bottom: 0.75em;
 `;
 
 const StyledForm = styled.form``;

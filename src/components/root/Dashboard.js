@@ -23,16 +23,17 @@ export default function Dashboard() {
 const StyledDashboardWrapper = styled.div`
   display: grid;
   grid-template-columns: 20.55% 42.22% 20.55%;
-  grid-gap: 1.11%;
+  grid-gap: 1em;
   justify-content: center;
   background-color: #fafafa;
-  padding-top: 2.36rem;
+  padding-top: 2.36em;
+  min-height: 100vh;
 `;
 
 const StyledLeftContainer = styled.div``;
 
 const StyledCenterContainer = styled.div`
-  border: 4px solid orange;
+
 `;
 
 const StyledRightContainer = styled.div``;
