@@ -10,16 +10,20 @@ export default function TagsContainer() {
           <StyledSearch placeholder="Search tag" />
           <StyledCheckboxList>
             <StyledInput>
-              <StyledCheckbox type="checkbox" /> All <StyledCheckCount>(18)</StyledCheckCount>
+              <StyledCheckbox type="checkbox" /> All{" "}
+              <StyledCheckCount>(18)</StyledCheckCount>
             </StyledInput>
             <StyledInput>
-              <StyledCheckbox type="checkbox" /> All <StyledCheckCount>(18)</StyledCheckCount>
+              <StyledCheckbox type="checkbox" /> All{" "}
+              <StyledCheckCount>(18)</StyledCheckCount>
             </StyledInput>
             <StyledInput>
-              <StyledCheckbox type="checkbox" /> All <StyledCheckCount>(18)</StyledCheckCount>
+              <StyledCheckbox type="checkbox" /> All{" "}
+              <StyledCheckCount>(18)</StyledCheckCount>
             </StyledInput>
             <StyledInput>
-              <StyledCheckbox type="checkbox" /> All <StyledCheckCount>(18)</StyledCheckCount>
+              <StyledCheckbox type="checkbox" /> All{" "}
+              <StyledCheckCount>(18)</StyledCheckCount>
             </StyledInput>
           </StyledCheckboxList>
         </StyledForm>
@@ -38,7 +42,7 @@ const StyledWrapper = styled.div`
   width: 18.5em;
   height: 15.25em;
   padding-top: 0.75em;
-  display:flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
 `;
@@ -49,36 +53,36 @@ const StyledHeader = styled.p`
   margin-bottom: 0.75em;
 `;
 
-const StyledForm = styled.form`
-
-`;
+const StyledForm = styled.form``;
 
 const StyledSearch = styled.input`
   justify-self: left;
-  width: 15.50em;
+  width: 15.5em;
   height: 3em;
   font-size: 0.88rem;
-  color: #A8A8A8;
-  border: 2px solid #E0E0E0;
+  color: #a8a8a8;
+  border: 2px solid #e0e0e0;
   border-radius: 2px;
   margin-top: 1.5em;
   margin-bottom: 1.06em;
-  ::placeholder{
+  ::placeholder {
     padding-left: 1em;
   }
 `;
 
 const StyledCheckboxList = styled.div`
-  border: none; 
-  height: 8.06em; 
+  border: none;
+  height: 8.06em;
   overflow-y: scroll;
 `;
 
 const StyledInput = styled.div`
   font-size: 0.88rem;
   color: #525252;
-  display:flex;
+  display: flex;
   margin-bottom: 1em;
+  margin-left: 3px;
+  margin-top: 3px;
 `;
 
 const StyledCheckbox = styled.input`
@@ -87,12 +91,10 @@ const StyledCheckbox = styled.input`
   margin-right: 0.5em;
   box-shadow: 0px 1px 7px #5d38c066;
   border-radius: 2px;
-  margin-left: 3px;
-  margin-top: 3px;
 `;
 
 const StyledCheckCount = styled.div`
-  color: #A8A8A8;
+  color: #a8a8a8;
   font-size: 0.88rem;
   margin-left: 0.25em;
 `;
