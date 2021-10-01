@@ -63,9 +63,7 @@ const StyledSearch = styled.input`
   border-radius: 2px;
   margin-top: 1.5em;
   margin-bottom: 1.06em;
-  ::placeholder{
-    padding-left: 1em;
-  }
+  padding-left: 1em;
 `;
 
 const StyledCheckboxList = styled.div`

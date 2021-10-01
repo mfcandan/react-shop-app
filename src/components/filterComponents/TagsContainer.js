@@ -10,7 +10,7 @@ export default function TagsContainer() {
           <StyledSearch placeholder="Search tag" />
           <StyledCheckboxList>
             <StyledInput>
-              <StyledCheckbox type="checkbox" /> All <StyledCheckCount>(18)</StyledCheckCount>
+              <StyledCheckbox type="checkbox" id="all" /> All <StyledCheckCount for="all">(18)</StyledCheckCount>
             </StyledInput>
             <StyledInput>
               <StyledCheckbox type="checkbox" /> All <StyledCheckCount>(18)</StyledCheckCount>
@@ -63,9 +63,7 @@ const StyledSearch = styled.input`
   border-radius: 2px;
   margin-top: 1.5em;
   margin-bottom: 1.06em;
-  ::placeholder{
-    padding-left: 1em;
-  }
+  padding-left: 1em;
 `;
 
 const StyledCheckboxList = styled.div`
@@ -91,7 +89,7 @@ const StyledCheckbox = styled.input`
   margin-top: 3px;
 `;
 
-const StyledCheckCount = styled.div`
+const StyledCheckCount = styled.label`
   color: #A8A8A8;
   font-size: 0.88rem;
   margin-left: 0.25em;
