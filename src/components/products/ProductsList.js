@@ -2,32 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import Product from "./Product";
 
-export default function ProductsList() {
+export default function ProductsList({ products }) {
   return (
-    <StyledContainer>
+    <StyledProductListContainer>
       <StyledProductListWrapper>
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
-        <Product />
+        {products.map((product) => (
+          <Product
+            key={product.name}
+            name={product.name}
+            price={product.price}
+            desc={product.description}
+          />
+        ))}
       </StyledProductListWrapper>
-    </StyledContainer>
+    </StyledProductListContainer>
   );
 }
 
-const StyledContainer = styled.div`
+const StyledProductListContainer = styled.div`
   background-color: #ffffff;
   border-radius: 2px;
   margin-top: 1em;

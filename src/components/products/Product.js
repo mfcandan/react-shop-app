@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Product() {
+export default function Product({ name, price, desc }) {
   return (
-    <StyledProductWrapper>
+    <StyledProductWrapper key={name}>
       <StyledImageWrapper>
         <StyledImage />
       </StyledImageWrapper>
       <StyledPriceLabel>
-        <span>₺</span> 14,99
+        <span>₺</span> {price}
       </StyledPriceLabel>
-      <StyledNameLabel>Gorgeous Office Mug</StyledNameLabel>
+      <StyledNameLabel>{name}</StyledNameLabel>
       <StyledButton>Add</StyledButton>
     </StyledProductWrapper>
   );
@@ -58,6 +58,7 @@ const StyledPriceLabel = styled.div`
 const StyledNameLabel = styled.div`
   font-size: 14px;
   font-weight: 600;
+  height: 2.5em;
 `;
 
 const StyledButton = styled.div`

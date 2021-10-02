@@ -1,63 +1,86 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import ProductsList from "./ProductsList";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as productActions from "../../redux/actions/productActions";
+import * as cartActions from "../../redux/actions/cartActions";
 
-const selected = {
-  clr: "palevioletred",
-  bg: "white",
-};
+class ProductContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCategory: "mug",
+    };
+    this.handleProductCategorySelect =
+      this.handleProductCategorySelect.bind(this);
+  }
 
-const selectedBtn = ({ fg, bg }) => ({
-  clr: bg,
-  bg: fg,
-});
+  componentDidMount() {
+    this.props.actions.getProducts("mug");
+  }
 
-export default function ProductContainer() {
-  const [productCategory, setProductCategory] = useState([true, false]);
-
-  useEffect(() => {
-    console.log(productCategory);
-  }, [productCategory]);
-
-  const handleProductCategorySelect = (selectedCategory) => {
-    selectedCategory === "mug"
-      ? setProductCategory([true, false])
-      : setProductCategory([false, true]);
+  handleProductCategorySelect = (category) => {
+    if (category === "mug") {
+      this.setState({ selectedCategory: "mug" });
+    } else if (category === "shirt") {
+      this.setState({ selectedCategory: "shirt" });
+    } else {
+      console.log("Category not defined");
+    }
+    this.props.actions.getProducts(category);
   };
 
-  return (
-    <StyledContainer>
-      <StyledHeader>Products</StyledHeader>
-      <StyledSelectProductCategories>
-        <StyledButton
-          selected={productCategory[0]}
-          onClick={(e) => handleProductCategorySelect("mug")}
-        >
-          mug
-        </StyledButton>
-        <StyledButton
-          selected={productCategory[1]}
-          onClick={(e) => handleProductCategorySelect("shirt")}
-        >
-          shirt
-        </StyledButton>
-      </StyledSelectProductCategories>
-      <ProductsList />
-    </StyledContainer>
-  );
+  render() {
+    return (
+      <StyledContainer>
+        <StyledHeader>Products</StyledHeader>
+        <StyledSelectProductCategories>
+          <StyledButton
+            selected={this.state.selectedCategory === "mug"}
+            onClick={() => this.handleProductCategorySelect("mug")}
+          >
+            mug
+          </StyledButton>
+          <StyledButton
+            selected={this.state.selectedCategory === "shirt"}
+            onClick={() => this.handleProductCategorySelect("shirt")}
+          >
+            shirt
+          </StyledButton>
+        </StyledSelectProductCategories>
+        <ProductsList products={this.props.products} />
+      </StyledContainer>
+    );
+  }
 }
 
-const StyledContainer = styled.div``;
+function mapStateToProps(state) {
+  return {
+    currentCategory: state.changeCategoryReducer,
+    products: state.productListReducer,
+  };
+}
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      getProducts: bindActionCreators(productActions.getProducts, dispatch),
+      addToCart: bindActionCreators(cartActions.addToCart, dispatch),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductContainer);
+
+const StyledContainer = styled.div``;
 const StyledHeader = styled.div`
   color: #6f6f6f;
   font-size: 1.25rem;
 `;
-
 const StyledSelectProductCategories = styled.div`
   margin-top: 1em;
 `;
-
 const StyledButton = styled.button`
   border: none;
   border-radius: 2px;
