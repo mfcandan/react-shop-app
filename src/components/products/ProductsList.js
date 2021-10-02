@@ -2,17 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Product from "./Product";
 
-export default function ProductsList({ products }) {
+export default function ProductsList({ products, addToCart }) {
   return (
     <StyledProductListContainer>
       <StyledProductListWrapper>
         {products.map((product) => (
-          <Product
-            key={product.name}
-            name={product.name}
-            price={product.price}
-            desc={product.description}
-          />
+          <Product product={product} addToCart={addToCart} />
         ))}
       </StyledProductListWrapper>
     </StyledProductListContainer>

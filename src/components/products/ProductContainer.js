@@ -12,6 +12,7 @@ class ProductContainer extends Component {
     this.state = {
       selectedCategory: "mug",
     };
+    this.addToCart = this.addToCart.bind(this);
     this.handleProductCategorySelect =
       this.handleProductCategorySelect.bind(this);
   }
@@ -29,6 +30,10 @@ class ProductContainer extends Component {
       console.log("Category not defined");
     }
     this.props.actions.getProducts(category);
+  };
+
+  addToCart = (product) => {
+    this.props.actions.addToCart({ quantity: 1, product });
   };
 
   render() {
@@ -49,7 +54,10 @@ class ProductContainer extends Component {
             shirt
           </StyledButton>
         </StyledSelectProductCategories>
-        <ProductsList products={this.props.products} />
+        <ProductsList
+          products={this.props.products}
+          addToCart={this.addToCart}
+        />
       </StyledContainer>
     );
   }

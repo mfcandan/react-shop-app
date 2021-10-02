@@ -1,17 +1,71 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
 import CartDetailProduct from "./CartDetailProduct";
+import * as cartActions from "../../redux/actions/cartActions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-export default function CartDetail() {
-  return (
-    <StyledContainer>
-      <CartDetailProduct />
-      <StyledCardTotalWrapper>
-        <StyledCardTotal>₺39,97</StyledCardTotal>
-      </StyledCardTotalWrapper>
-    </StyledContainer>
-  );
+class CartDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.IncreaseCartQuantity = this.IncreaseCartQuantity.bind(this);
+  }
+
+  IncreaseCartQuantity = (cartItem) => {
+    this.props.actions.increaseCartItem(cartItem);
+  };
+
+  DecreaseCartQuantity = (cartItem) => {
+    this.props.actions.decreaseCartItem(cartItem);
+  };
+
+  render() {
+    let totalPrice = 0;
+    this.props.cart.map(
+      (cartItem) => (totalPrice += cartItem.quantity * cartItem.product.price)
+    );
+    return (
+      <StyledContainer>
+        <CartDetailProduct
+          carts={this.props.cart}
+          IncreaseQuantity={this.IncreaseCartQuantity}
+          DecreaseCartQuantity={this.DecreaseCartQuantity}
+        />
+        <StyledCardTotalWrapper>
+          <StyledCardTotal
+            onClick={() => this.IncreaseCartQuantity(this.props.cart)}
+          >
+            ₺ {totalPrice.toFixed(2)}
+          </StyledCardTotal>
+        </StyledCardTotalWrapper>
+      </StyledContainer>
+    );
+  }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      removeFromCart: bindActionCreators(cartActions.removeFromCart, dispatch),
+      increaseCartItem: bindActionCreators(
+        cartActions.IncreaseQuantity,
+        dispatch
+      ),
+      decreaseCartItem: bindActionCreators(
+        cartActions.DecreaseQuantity,
+        dispatch
+      ),
+    },
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    cart: state.cartReducer,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartDetail);
 
 const StyledContainer = styled.div`
   background-color: #fff;

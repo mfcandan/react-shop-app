@@ -1,17 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function Product({ name, price, desc }) {
+export default function Product({ product, addToCart }) {
   return (
-    <StyledProductWrapper key={name}>
+    <StyledProductWrapper key={product.name}>
       <StyledImageWrapper>
         <StyledImage />
       </StyledImageWrapper>
       <StyledPriceLabel>
-        <span>₺</span> {price}
+        <span>₺</span> {product.price}
       </StyledPriceLabel>
-      <StyledNameLabel>{name}</StyledNameLabel>
-      <StyledButton>Add</StyledButton>
+      <StyledNameLabel>{product.name}</StyledNameLabel>
+      <StyledButton onClick={() => addToCart(product)}>Add</StyledButton>
     </StyledProductWrapper>
   );
 }

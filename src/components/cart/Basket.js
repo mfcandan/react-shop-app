@@ -1,15 +1,30 @@
-import React from 'react'
-import styled from 'styled-components'
-import basketImg from '../../assets/basket.png'
+import React, { Component } from "react";
+import styled from "styled-components";
+import basketImg from "../../assets/basket.png";
+import { connect } from "react-redux";
 
-export default function Basket() {
-  return (
-    <StyledCartTotalContainer>
-      <StyledBasketImage src={basketImg} />
-      <StyledCartTotalText>₺ 39,97</StyledCartTotalText>
-    </StyledCartTotalContainer>
-  )
+class Basket extends Component {
+  render() {
+    let totalPrice = 0;
+    this.props.cart.map(
+      (cartItem) => (totalPrice += cartItem.quantity * cartItem.product.price)
+    );
+    return (
+      <StyledCartTotalContainer>
+        <StyledBasketImage src={basketImg} />
+        <StyledCartTotalText>₺ {totalPrice.toFixed(2)}</StyledCartTotalText>
+      </StyledCartTotalContainer>
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return {
+    cart: state.cartReducer,
+  };
+}
+
+export default connect(mapStateToProps)(Basket);
 
 const StyledCartTotalContainer = styled.div`
   background-color: #147594;
@@ -18,13 +33,10 @@ const StyledCartTotalContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0.1rem;
-
-`
-const StyledBasketImage = styled.img`
-
-`
+`;
+const StyledBasketImage = styled.img``;
 const StyledCartTotalText = styled.div`
   color: #fff;
   font-size: 0.8rem;
   font-weight: 400;
-`
+`;
