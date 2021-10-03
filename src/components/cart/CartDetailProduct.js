@@ -48,12 +48,7 @@ export default function CartDetailProduct({
     </>
   );
 
-  return (
-    <>
-      {console.log(carts)}
-      {carts.length !== 0 ? cartView : emptyCart}
-    </>
-  );
+  return <>{carts.length !== 0 ? cartView : emptyCart}</>;
 }
 
 const StyledContainer = styled.div`

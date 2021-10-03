@@ -4,38 +4,6 @@ export function getProductsSuccess(products) {
   return { type: actionTypes.GET_PRODUCTS_SUCCESS, payload: products };
 }
 
-export function createProductSuccess(product) {
-  return { type: actionTypes.CREATE_PRODUCT_SUCCES, payload: product };
-}
-
-export function updateProductSuccess(product) {
-  return { type: actionTypes.UPDATE_PRODUCT_SUCCES, payload: product };
-}
-
-export function saveProductApi(product) {
-  return fetch("http://localhost:3000/items/" + (product.id || ""), {
-    method: product.id ? "PUT" : "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(product),
-  })
-    .then(handleResponse)
-    .catch(handleError);
-}
-
-export function saveProduct(product) {
-  return function (dispatch) {
-    return saveProductApi(product)
-      .then((savedProduct) => {
-        product.id
-          ? dispatch(updateProductSuccess(savedProduct))
-          : dispatch(createProductSuccess(savedProduct));
-      })
-      .catch((error) => {
-        throw error;
-      });
-  };
-}
-
 export function handleError(error) {
   console.log(error);
   throw error;
@@ -60,4 +28,17 @@ export function getProducts(productType) {
       .then((response) => response.json())
       .then((response) => dispatch(getProductsSuccess(response)));
   };
+}
+
+export function sortProducts(sortColumn, sortingType, sortCategory) {
+  return function (dispatch) {
+    let url = `http://localhost:3000/items?itemType=${sortCategory}&_sort=${sortColumn}&_order=${sortingType}&_page=0&_limit=16`;
+    return fetch(url)
+      .then((response) => response.json())
+      .then((response) => dispatch(getProductsSuccess(response)));
+  };
+}
+
+export function changeSortList(sortingType) {
+  return { type: actionTypes.CHANGE_SORTING_SUCCESS, payload: sortingType };
 }

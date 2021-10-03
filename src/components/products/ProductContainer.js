@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as productActions from "../../redux/actions/productActions";
 import * as cartActions from "../../redux/actions/cartActions";
+import * as categoryActions from "../../redux/actions/categoryActions";
 
 class ProductContainer extends Component {
   constructor(props) {
@@ -24,12 +25,19 @@ class ProductContainer extends Component {
   handleProductCategorySelect = (category) => {
     if (category === "mug") {
       this.setState({ selectedCategory: "mug" });
+      this.props.actions.changeCategory("mug");
     } else if (category === "shirt") {
       this.setState({ selectedCategory: "shirt" });
+      this.props.actions.changeCategory("shirt");
     } else {
       console.log("Category not defined");
     }
-    this.props.actions.getProducts(category);
+
+    this.props.actions.sortProducts(
+      this.props.sortingType[0],
+      this.props.sortingType[1],
+      category
+    );
   };
 
   addToCart = (product) => {
@@ -67,6 +75,7 @@ function mapStateToProps(state) {
   return {
     currentCategory: state.changeCategoryReducer,
     products: state.productListReducer,
+    sortingType: state.sortingListReducer,
   };
 }
 
@@ -74,7 +83,12 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getProducts: bindActionCreators(productActions.getProducts, dispatch),
+      sortProducts: bindActionCreators(productActions.sortProducts, dispatch),
       addToCart: bindActionCreators(cartActions.addToCart, dispatch),
+      changeCategory: bindActionCreators(
+        categoryActions.changeCategory,
+        dispatch
+      ),
     },
   };
 }

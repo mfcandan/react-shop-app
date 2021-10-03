@@ -5,13 +5,33 @@ import { bindActionCreators } from "redux";
 import * as productActions from "../../redux/actions/productActions";
 
 class SortingContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleSort = this.handleSort.bind(this);
+    this.handleSortbyDate = this.handleSortbyDate.bind(this);
+  }
+
+  handleSort = (sortColumn, sortingType) => {
+    this.props.actions.sortProducts(
+      sortColumn,
+      sortingType,
+      this.props.currentCategory
+    );
+    this.props.actions.changeSortList([sortColumn, sortingType]);
+  };
+
+  handleSortbyDate = (date) => {
+    this.props.actions.sortProductsPrice(date);
+  };
+
   render() {
     return (
       <StyledContainer>
         <StyledHeader style={{ color: "#697488" }}>Sorting</StyledHeader>
         <StyledWrapper>
           <StyledForm>
-            <StyledInput onClick={() => alert("LOW TO HIGH")}>
+            <StyledInput onClick={() => this.handleSort("price", "asc")}>
               <StyledInputRadio
                 type="radio"
                 id="phtl"
@@ -21,7 +41,7 @@ class SortingContainer extends Component {
               <StyledLabel for="phtl">Price low to high</StyledLabel>
             </StyledInput>
 
-            <StyledInput>
+            <StyledInput onClick={() => this.handleSort("price", "desc")}>
               <StyledInputRadio
                 type="radio"
                 id="plth"
@@ -31,7 +51,7 @@ class SortingContainer extends Component {
               <StyledLabel for="plth">Price high to low</StyledLabel>
             </StyledInput>
 
-            <StyledInput>
+            <StyledInput onClick={() => this.handleSort("added", "asc")}>
               <StyledInputRadio
                 type="radio"
                 id="nto"
@@ -40,7 +60,7 @@ class SortingContainer extends Component {
               />
               <StyledLabel for="nto">New to old</StyledLabel>
             </StyledInput>
-            <StyledInput>
+            <StyledInput onClick={() => this.handleSort("added", "desc")}>
               <StyledInputRadio
                 type="radio"
                 id="otn"
@@ -60,6 +80,7 @@ function mapStateToProps(state) {
   return {
     currentCategory: state.changeCategoryReducer,
     products: state.productListReducer,
+    selectedCategory: state.selectedCategory,
   };
 }
 
@@ -67,6 +88,11 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getProducts: bindActionCreators(productActions.getProducts, dispatch),
+      sortProducts: bindActionCreators(productActions.sortProducts, dispatch),
+      changeSortList: bindActionCreators(
+        productActions.changeSortList,
+        dispatch
+      ),
     },
   };
 }
