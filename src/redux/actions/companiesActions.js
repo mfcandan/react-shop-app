@@ -9,7 +9,6 @@ export function getCompanies(searchTerm) {
   if (searchTerm) {
     url += "?q=" + searchTerm;
   }
-  console.log(searchTerm);
   return function (dispatch) {
     return fetch(url)
       .then((response) => response.json())

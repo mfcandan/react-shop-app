@@ -6,10 +6,6 @@ import * as companiesActions from "../../redux/actions/companiesActions";
 import * as productActions from "../../redux/actions/productActions";
 
 class TagsContainer extends Component {
-  componentDidMount() {
-    console.log(this.props.actions.getTags());
-  }
-
   render() {
     return (
       <StyledContainer>
