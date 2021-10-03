@@ -27,7 +27,7 @@ export default function CartDetailProduct({
             <StyledWrapper>
               <StyledLabel>{cartItem.product.name}</StyledLabel>
               <StyledLabel style={{ color: "#1EA4CE" }}>
-                {cartItem.product.price}
+                ₺{cartItem.product.price}
               </StyledLabel>
             </StyledWrapper>
             <StyledCountWrapper>
@@ -65,6 +65,7 @@ const StyledContainer = styled.div`
 const StyledWrapper = styled.div``;
 const StyledLabel = styled.div`
   font-size: 0.88em;
+  padding-right: 0.5em;
 `;
 const StyledCountWrapper = styled.div`
   align-items: center;

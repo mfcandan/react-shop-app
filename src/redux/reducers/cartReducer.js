@@ -46,11 +46,13 @@ export default function cartReducer(state = initialState.cart, action) {
         return cartItem;
       });
       return decreasedItem;
+
     case actionTypes.REMOVE_FROM_CART:
-      const newState2 = state.filter(
-        (cartItem) => cartItem.product.name !== action.payload.name
+      const removedItem = state.filter(
+        (cartItem) => cartItem.product.name !== action.payload.product.name
       );
-      return newState2;
+      console.log(removedItem);
+      return removedItem;
     default:
       return state;
   }

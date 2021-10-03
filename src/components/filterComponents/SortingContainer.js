@@ -1,55 +1,77 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as productActions from "../../redux/actions/productActions";
 
-export default function SortingContainer() {
-  return (
-    <StyledContainer>
-      <StyledHeader style={{ color: "#697488" }}>Sorting</StyledHeader>
-      <StyledWrapper>
-        <StyledForm>
-          <StyledInput>
-            <StyledInputRadio
-              type="radio"
-              id="phtl"
-              name="sorting"
-              value="phtl"
-            />
-            <StyledLabel for="phtl">Price low to high</StyledLabel>
-          </StyledInput>
+class SortingContainer extends Component {
+  render() {
+    return (
+      <StyledContainer>
+        <StyledHeader style={{ color: "#697488" }}>Sorting</StyledHeader>
+        <StyledWrapper>
+          <StyledForm>
+            <StyledInput onClick={() => alert("LOW TO HIGH")}>
+              <StyledInputRadio
+                type="radio"
+                id="phtl"
+                name="sorting"
+                value="phtl"
+              />
+              <StyledLabel for="phtl">Price low to high</StyledLabel>
+            </StyledInput>
 
-          <StyledInput>
-            <StyledInputRadio
-              type="radio"
-              id="plth"
-              name="sorting"
-              value="plth"
-            />
-            <StyledLabel for="plth">Price high to low</StyledLabel>
-          </StyledInput>
+            <StyledInput>
+              <StyledInputRadio
+                type="radio"
+                id="plth"
+                name="sorting"
+                value="plth"
+              />
+              <StyledLabel for="plth">Price high to low</StyledLabel>
+            </StyledInput>
 
-          <StyledInput>
-            <StyledInputRadio
-              type="radio"
-              id="nto"
-              name="sorting"
-              value="nto"
-            />
-            <StyledLabel for="nto">New to old</StyledLabel>
-          </StyledInput>
-          <StyledInput>
-            <StyledInputRadio
-              type="radio"
-              id="otn"
-              name="sorting"
-              value="otn"
-            />
-            <StyledLabel for="otn">Old to new</StyledLabel>
-          </StyledInput>
-        </StyledForm>
-      </StyledWrapper>
-    </StyledContainer>
-  );
+            <StyledInput>
+              <StyledInputRadio
+                type="radio"
+                id="nto"
+                name="sorting"
+                value="nto"
+              />
+              <StyledLabel for="nto">New to old</StyledLabel>
+            </StyledInput>
+            <StyledInput>
+              <StyledInputRadio
+                type="radio"
+                id="otn"
+                name="sorting"
+                value="otn"
+              />
+              <StyledLabel for="otn">Old to new</StyledLabel>
+            </StyledInput>
+          </StyledForm>
+        </StyledWrapper>
+      </StyledContainer>
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return {
+    currentCategory: state.changeCategoryReducer,
+    products: state.productListReducer,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      getProducts: bindActionCreators(productActions.getProducts, dispatch),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SortingContainer);
 
 const StyledContainer = styled.div`
   margin-bottom: 1.5em;

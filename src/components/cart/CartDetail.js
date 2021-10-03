@@ -11,12 +11,17 @@ class CartDetail extends Component {
     this.IncreaseCartQuantity = this.IncreaseCartQuantity.bind(this);
   }
 
-  IncreaseCartQuantity = (cartItem) => {
-    this.props.actions.increaseCartItem(cartItem);
+  IncreaseCartQuantity = (cartsItem) => {
+    this.props.actions.increaseCartItem(cartsItem);
   };
 
-  DecreaseCartQuantity = (cartItem) => {
-    this.props.actions.decreaseCartItem(cartItem);
+  DecreaseCartQuantity = (cartsItem) => {
+    console.log(cartsItem.quantity);
+    if (cartsItem.quantity > 1) {
+      this.props.actions.decreaseCartItem(cartsItem);
+    } else {
+      this.props.actions.removeFromCart(cartsItem);
+    }
   };
 
   render() {
@@ -32,11 +37,7 @@ class CartDetail extends Component {
           DecreaseCartQuantity={this.DecreaseCartQuantity}
         />
         <StyledCardTotalWrapper>
-          <StyledCardTotal
-            onClick={() => this.IncreaseCartQuantity(this.props.cart)}
-          >
-            ₺ {totalPrice.toFixed(2)}
-          </StyledCardTotal>
+          <StyledCardTotal>₺ {totalPrice.toFixed(2)}</StyledCardTotal>
         </StyledCardTotalWrapper>
       </StyledContainer>
     );
