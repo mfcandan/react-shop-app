@@ -43,7 +43,7 @@ export function changeSortList(sortingType) {
   return { type: actionTypes.CHANGE_SORTING_SUCCESS, payload: sortingType };
 }
 
-export function getProductsByCompany(
+export function getProductsByFilter(
   sortColumn,
   sortingType,
   sortCategory,

@@ -12,6 +12,7 @@ class BrandsContainer extends Component {
       selectedCompanies: [],
     };
     this.handleSelectCompany = this.handleSelectCompany.bind(this);
+    this.handleSearchCompany = this.handleSearchCompany.bind(this);
     this.handleGetProductsByCompany =
       this.handleGetProductsByCompany.bind(this);
   }
@@ -24,6 +25,10 @@ class BrandsContainer extends Component {
     // console.log(this.state.selectedCompanies);
     this.handleGetProductsByCompany();
   }
+
+  handleSearchCompany = (value) => {
+    this.props.actions.getCompanies(value);
+  };
 
   handleSelectCompany = (company) => {
     let temp = this.state.selectedCompanies;
@@ -38,7 +43,7 @@ class BrandsContainer extends Component {
   };
 
   handleGetProductsByCompany = () => {
-    this.props.actions.getProductsByCompany(
+    this.props.actions.getProductsByFilter(
       this.props.sortingType[0],
       this.props.sortingType[1],
       this.props.currentCategory,
@@ -52,17 +57,19 @@ class BrandsContainer extends Component {
         <StyledHeader style={{ color: "#697488" }}>Brands</StyledHeader>
         <StyledWrapper>
           <StyledForm>
-            <StyledSearch placeholder="Search brand" />
+            <StyledSearch
+              placeholder="Search brand"
+              onChange={(e) => this.handleSearchCompany(e.target.value)}
+            />
             <StyledCheckboxList>
               {this.props.companies.map((company) => (
-                <StyledInput>
+                <StyledInput key={company.slug}>
                   <StyledCheckbox
                     type="checkbox"
                     id={company.slug}
                     onClick={() => this.handleSelectCompany(company)}
                   />{" "}
                   <StyledLabel for={company.slug}>{company.name}</StyledLabel>
-                  <StyledCheckCount>(18)</StyledCheckCount>
                 </StyledInput>
               ))}
             </StyledCheckboxList>
@@ -85,8 +92,8 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getCompanies: bindActionCreators(companiesActions.getCompanies, dispatch),
-      getProductsByCompany: bindActionCreators(
-        productActions.getProductsByCompany,
+      getProductsByFilter: bindActionCreators(
+        productActions.getProductsByFilter,
         dispatch
       ),
 
