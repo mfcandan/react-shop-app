@@ -1,36 +1,104 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as companiesActions from "../../redux/actions/companiesActions";
+import * as productActions from "../../redux/actions/productActions";
 
-export default function BrandsContainer() {
-  return (
-    <StyledContainer>
-      <StyledHeader style={{ color: "#697488" }}>Brands</StyledHeader>
-      <StyledWrapper>
-        <StyledForm>
-          <StyledSearch placeholder="Search brand" />
-          <StyledCheckboxList>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-          </StyledCheckboxList>
-        </StyledForm>
-      </StyledWrapper>
-    </StyledContainer>
-  );
+class BrandsContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedCompanies: [],
+    };
+    this.handleSelectCompany = this.handleSelectCompany.bind(this);
+    this.handleGetProductsByCompany =
+      this.handleGetProductsByCompany.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.actions.getCompanies();
+  }
+
+  componentDidUpdate() {
+    // console.log(this.state.selectedCompanies);
+    this.handleGetProductsByCompany();
+  }
+
+  handleSelectCompany = (company) => {
+    let temp = this.state.selectedCompanies;
+    const found = temp.find((element) => element === company.slug);
+
+    if (found) {
+      temp = temp.filter((element) => element !== company.slug);
+    } else {
+      temp.push(company.slug);
+    }
+    this.setState({ selectedCompanies: temp });
+  };
+
+  handleGetProductsByCompany = () => {
+    this.props.actions.getProductsByCompany(
+      this.props.sortingType[0],
+      this.props.sortingType[1],
+      this.props.currentCategory,
+      this.state.selectedCompanies
+    );
+  };
+
+  render() {
+    return (
+      <StyledContainer>
+        <StyledHeader style={{ color: "#697488" }}>Brands</StyledHeader>
+        <StyledWrapper>
+          <StyledForm>
+            <StyledSearch placeholder="Search brand" />
+            <StyledCheckboxList>
+              {this.props.companies.map((company) => (
+                <StyledInput>
+                  <StyledCheckbox
+                    type="checkbox"
+                    id={company.slug}
+                    onClick={() => this.handleSelectCompany(company)}
+                  />{" "}
+                  <StyledLabel for={company.slug}>{company.name}</StyledLabel>
+                  <StyledCheckCount>(18)</StyledCheckCount>
+                </StyledInput>
+              ))}
+            </StyledCheckboxList>
+          </StyledForm>
+        </StyledWrapper>
+      </StyledContainer>
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return {
+    companies: state.companyListReducer,
+    currentCategory: state.changeCategoryReducer,
+    sortingType: state.sortingListReducer,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      getCompanies: bindActionCreators(companiesActions.getCompanies, dispatch),
+      getProductsByCompany: bindActionCreators(
+        productActions.getProductsByCompany,
+        dispatch
+      ),
+
+      // changeCategory: bindActionCreators(
+      //   categoryActions.changeCategory,
+      //   dispatch
+      // ),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BrandsContainer);
 
 const StyledContainer = styled.div`
   margin-bottom: 1.5em;
@@ -65,9 +133,7 @@ const StyledSearch = styled.input`
   border-radius: 2px;
   margin-top: 1.5em;
   margin-bottom: 1.06em;
-  ::placeholder {
-    padding-left: 1em;
-  }
+  padding-left: 1em;
 `;
 
 const StyledCheckboxList = styled.div`
@@ -78,11 +144,15 @@ const StyledCheckboxList = styled.div`
 
 const StyledInput = styled.div`
   font-size: 0.88rem;
-
   display: flex;
   margin-bottom: 1em;
   margin-left: 3px;
   margin-top: 3px;
+`;
+
+const StyledLabel = styled.label`
+  width: 8.8em;
+  font: 0.88rem;
 `;
 
 const StyledCheckbox = styled.input`
