@@ -27,13 +27,11 @@ const StyledDashboardWrapper = styled.div`
   justify-content: center;
   background-color: #fafafa;
   padding-top: 2.36em;
-  min-height: 100vh;
+  margin-bottom: 8.5em;
 `;
 
 const StyledLeftContainer = styled.div``;
 
-const StyledCenterContainer = styled.div`
-
-`;
+const StyledCenterContainer = styled.div``;
 
 const StyledRightContainer = styled.div``;

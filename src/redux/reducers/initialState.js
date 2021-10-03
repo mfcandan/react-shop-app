@@ -4,7 +4,6 @@ export default {
   products: [],
   cart: [],
   sortingType: ["", ""],
-  savedProduct: {},
   companies: [],
   selectedCompanies: [],
 };

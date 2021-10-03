@@ -1,36 +1,69 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as companiesActions from "../../redux/actions/companiesActions";
+import * as productActions from "../../redux/actions/productActions";
 
-export default function TagsContainer() {
-  return (
-    <StyledContainer>
-      <StyledHeader style={{ color: "#697488" }}>Tags</StyledHeader>
-      <StyledWrapper>
-        <StyledForm>
-          <StyledSearch placeholder="Search tag" />
-          <StyledCheckboxList>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-            <StyledInput>
-              <StyledCheckbox type="checkbox" /> All{" "}
-              <StyledCheckCount>(18)</StyledCheckCount>
-            </StyledInput>
-          </StyledCheckboxList>
-        </StyledForm>
-      </StyledWrapper>
-    </StyledContainer>
-  );
+class TagsContainer extends Component {
+  componentDidMount() {
+    console.log(this.props.actions.getTags());
+  }
+
+  render() {
+    return (
+      <StyledContainer>
+        <StyledHeader style={{ color: "#697488" }}>Tags</StyledHeader>
+        <StyledWrapper>
+          <StyledForm>
+            <StyledSearch placeholder="Search tag" />
+            <StyledCheckboxList>
+              <StyledInput>
+                <StyledCheckbox type="checkbox" /> All{" "}
+                <StyledCheckCount>(18)</StyledCheckCount>
+              </StyledInput>
+              <StyledInput>
+                <StyledCheckbox type="checkbox" /> All{" "}
+                <StyledCheckCount>(18)</StyledCheckCount>
+              </StyledInput>
+              <StyledInput>
+                <StyledCheckbox type="checkbox" /> All{" "}
+                <StyledCheckCount>(18)</StyledCheckCount>
+              </StyledInput>
+              <StyledInput>
+                <StyledCheckbox type="checkbox" /> All{" "}
+                <StyledCheckCount>(18)</StyledCheckCount>
+              </StyledInput>
+            </StyledCheckboxList>
+          </StyledForm>
+        </StyledWrapper>
+      </StyledContainer>
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return {
+    companies: state.companyListReducer,
+    currentCategory: state.changeCategoryReducer,
+    sortingType: state.sortingListReducer,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      getTags: bindActionCreators(productActions.getTags, dispatch),
+      getCompanies: bindActionCreators(companiesActions.getCompanies, dispatch),
+      getProductsByFilter: bindActionCreators(
+        productActions.getProductsByFilter,
+        dispatch
+      ),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TagsContainer);
 
 const StyledContainer = styled.div`
   margin-bottom: 1.5em;
@@ -65,9 +98,7 @@ const StyledSearch = styled.input`
   border-radius: 2px;
   margin-top: 1.5em;
   margin-bottom: 1.06em;
-  ::placeholder {
-    padding-left: 1em;
-  }
+  padding-left: 1em;
 `;
 
 const StyledCheckboxList = styled.div`

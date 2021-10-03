@@ -96,11 +96,6 @@ function mapDispatchToProps(dispatch) {
         productActions.getProductsByFilter,
         dispatch
       ),
-
-      // changeCategory: bindActionCreators(
-      //   categoryActions.changeCategory,
-      //   dispatch
-      // ),
     },
   };
 }
