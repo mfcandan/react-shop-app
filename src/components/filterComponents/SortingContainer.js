@@ -7,22 +7,16 @@ import * as productActions from "../../redux/actions/productActions";
 class SortingContainer extends Component {
   constructor(props) {
     super(props);
-
     this.handleSort = this.handleSort.bind(this);
-    this.handleSortbyDate = this.handleSortbyDate.bind(this);
   }
 
   handleSort = (sortColumn, sortingType) => {
-    this.props.actions.sortProducts(
+    this.props.actions.getProductsByFilter(
       sortColumn,
       sortingType,
       this.props.currentCategory
     );
     this.props.actions.changeSortList([sortColumn, sortingType]);
-  };
-
-  handleSortbyDate = (date) => {
-    this.props.actions.sortProductsPrice(date);
   };
 
   render() {
@@ -88,7 +82,10 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getProducts: bindActionCreators(productActions.getProducts, dispatch),
-      sortProducts: bindActionCreators(productActions.sortProducts, dispatch),
+      getProductsByFilter: bindActionCreators(
+        productActions.getProductsByFilter,
+        dispatch
+      ),
       changeSortList: bindActionCreators(
         productActions.changeSortList,
         dispatch

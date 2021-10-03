@@ -33,7 +33,7 @@ class ProductContainer extends Component {
       console.log("Category not defined");
     }
 
-    this.props.actions.sortProducts(
+    this.props.actions.getProductsByFilter(
       this.props.sortingType[0],
       this.props.sortingType[1],
       category
@@ -83,7 +83,10 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getProducts: bindActionCreators(productActions.getProducts, dispatch),
-      sortProducts: bindActionCreators(productActions.sortProducts, dispatch),
+      getProductsByFilter: bindActionCreators(
+        productActions.getProductsByFilter,
+        dispatch
+      ),
       addToCart: bindActionCreators(cartActions.addToCart, dispatch),
       changeCategory: bindActionCreators(
         categoryActions.changeCategory,
