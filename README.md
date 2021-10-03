@@ -3,7 +3,7 @@
 
 Setup Instructions:
 
-## `git clone https://github.com/mfcandan/react-shop-app.git` Clone project to your pc
+## Clone project: `git clone https://github.com/mfcandan/react-shop-app.git` 
 
 ## `npm install` to install packages
 
